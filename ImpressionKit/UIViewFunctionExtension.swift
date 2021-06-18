@@ -315,6 +315,9 @@ extension UIView {
                 self.startTimerIfNeeded()
                 return
             }
+            guard self.isCanDetect == nil || self.isCanDetect ?? false else {
+                return
+            }
             // detect
             self.detect()
         })

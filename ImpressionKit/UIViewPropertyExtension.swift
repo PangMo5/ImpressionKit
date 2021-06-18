@@ -21,6 +21,7 @@ private var hookingDidMoveToWindowTokenKey = 0
 private var hookingViewDidDisappearTokenKey = 0
 private var notificationTokensKey = 0
 private var timerKey = 0
+private var isCanDetectKey = 0
 
 extension UIView {
            
@@ -180,6 +181,15 @@ extension UIView {
         }
         get {
             return objc_getAssociatedObject(self, &timerKey) as? Timer
+        }
+    }
+    
+    public var isCanDetect: Bool? {
+        set {
+            objc_setAssociatedObject(self, &isCanDetectKey, newValue, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+        get {
+            return objc_getAssociatedObject(self, &isCanDetectKey) as? Bool
         }
     }
     
