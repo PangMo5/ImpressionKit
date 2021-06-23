@@ -195,20 +195,17 @@ extension UIView {
                 return 0
             }
             // If super view hidden or alpha <= 0, self can't show
-            var aView = self
-            while let superView = aView.superview {
-                guard superView.isHidden == false && superView.alpha > 0 else {
-                    return 0
-                }
-                aView = superView
+            guard let superView = self.superview,
+                  superView.isHidden == false && superView.alpha > 0 else {
+                return 0
             }
             // Calculation
-            let frameInWindow = self.convert(self.bounds, to: aView)
-            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + aView.frame.origin.x,
-                                            y: frameInWindow.origin.y + aView.frame.origin.y,
+            let frameInWindow = self.convert(self.bounds, to: superView)
+            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superView.frame.origin.x,
+                                            y: frameInWindow.origin.y + superView.frame.origin.y,
                                             width: frameInWindow.width,
                                             height: frameInWindow.height)
-            let intersection = frameInScreen.intersection(aView.bounds)
+            let intersection = frameInScreen.intersection(superView.bounds)
             let ratio = (intersection.width * intersection.height) / (self.frame.width * self.frame.height)
             return self.fixRatioPrecision(number: Float(ratio))
         }
