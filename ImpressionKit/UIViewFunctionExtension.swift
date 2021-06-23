@@ -195,14 +195,17 @@ extension UIView {
                 return 0
             }
             // If super view hidden or alpha <= 0, self can't show
-            guard let superView = self.superview,
-                  superView.isHidden == false && superView.alpha > 0 else {
-                return 0
+            var aView = self
+            while let superView = aView.superview {
+                guard superView.isHidden == false && superView.alpha > 0 else {
+                    return 0
+                }
+                aView = superView
             }
             // Calculation
             
-            let superViewRect = superView.convert(superView.bounds, to: window)
-            let frameInWindow = self.convert(self.bounds, to: superView)
+            let superViewRect = aView.convert(aView.bounds, to: window)
+            let frameInWindow = self.convert(self.bounds, to: aView)
             let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewRect.origin.x,
                                             y: frameInWindow.origin.y + superViewRect.origin.y,
                                             width: frameInWindow.width,
