@@ -195,21 +195,26 @@ extension UIView {
                 return 0
             }
             // If super view hidden or alpha <= 0, self can't show
-            var aView = self
-            while let superView = aView.superview {
-                guard superView.isHidden == false && superView.alpha > 0 else {
-                    return 0
-                }
-                aView = superView
+            guard let superView = self.superview,
+                  superView.isHidden == false && superView.alpha > 0 else {
+                return 0
             }
             // Calculation
             
-            let superViewRect = aView.convert(aView.bounds, to: window)
-            let frameInWindow = self.convert(self.bounds, to: aView)
-            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewRect.origin.x,
-                                            y: frameInWindow.origin.y + superViewRect.origin.y,
-                                            width: frameInWindow.width,
-                                            height: frameInWindow.height)
+            let superViewRect = superView.convert(superView.bounds, to: window)
+            let frameInWindow = self.convert(self.bounds, to: superView)
+            let frameInScreen: CGRect
+            if superView.isKind(of: UIScrollView.self) {
+                frameInScreen = CGRect.init(x: frameInWindow.origin.x,
+                                                y: frameInWindow.origin.y,
+                                                width: frameInWindow.width,
+                                                height: frameInWindow.height)
+            } else {
+                frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewRect.origin.x,
+                                                y: frameInWindow.origin.y + superViewRect.origin.y,
+                                                width: frameInWindow.width,
+                                                height: frameInWindow.height)
+            }
 
 
             let intersection = frameInScreen.intersection(superViewRect)
