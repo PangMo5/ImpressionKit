@@ -201,7 +201,7 @@ extension UIView {
             }
             // Calculation
             
-            let superViewInWindow = superView.convert(superView.bounds, to: window)
+            let superViewInWindow = self.convert(superView.bounds, to: window)
             let frameInWindow = self.convert(self.bounds, to: superView)
             let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewInWindow.origin.x,
                                             y: frameInWindow.origin.y + superViewInWindow.origin.y,
