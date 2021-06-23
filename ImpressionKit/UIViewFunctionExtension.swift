@@ -201,14 +201,14 @@ extension UIView {
             }
             // Calculation
             
-            let superViewInWindow = self.convert(superView.bounds, to: window)
-            let frameInWindow = self.convert(self.bounds, to: superView)
-            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewInWindow.origin.x,
-                                            y: frameInWindow.origin.y + superViewInWindow.origin.y,
-                                            width: frameInWindow.width,
-                                            height: frameInWindow.height)
+            let superViewInWindow = superView.convert(superView.bounds, to: window)
+            let frameInScreen = self.convert(self.bounds, to: superView)
+//            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewInWindow.origin.x,
+//                                            y: frameInWindow.origin.y + superViewInWindow.origin.y,
+//                                            width: frameInWindow.width,
+//                                            height: frameInWindow.height)
             let intersection = frameInScreen.intersection(superViewInWindow)
-            let ratio = (intersection.width * intersection.height) / (self.frame.width * self.frame.height)
+            let ratio = (intersection.width * frameInScreen.height) / (frameInScreen.width * frameInScreen.height)
             return self.fixRatioPrecision(number: Float(ratio))
         }
     }
