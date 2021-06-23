@@ -201,20 +201,12 @@ extension UIView {
             }
             // Calculation
             
-            let superViewRect = superView.convert(superView.bounds, to: window)
-            let frameInWindow = self.convert(self.bounds, to: superView)
-            let frameInScreen: CGRect
-            if superView.isKind(of: UIScrollView.self) {
-                frameInScreen = CGRect.init(x: frameInWindow.origin.x,
-                                                y: frameInWindow.origin.y,
-                                                width: frameInWindow.width,
-                                                height: frameInWindow.height)
-            } else {
-                frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewRect.origin.x,
+            let superViewRect = superView.convert(superView.frame, to: window)
+            let frameInWindow = superView.convert(self.frame, to: window)
+            let frameInScreen = CGRect.init(x: frameInWindow.origin.x + superViewRect.origin.x,
                                                 y: frameInWindow.origin.y + superViewRect.origin.y,
                                                 width: frameInWindow.width,
                                                 height: frameInWindow.height)
-            }
 
 
             let intersection = frameInScreen.intersection(superViewRect)
