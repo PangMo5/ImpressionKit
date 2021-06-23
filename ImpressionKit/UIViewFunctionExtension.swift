@@ -195,16 +195,13 @@ extension UIView {
                 return 0
             }
             // If super view hidden or alpha <= 0, self can't show
-            var superView = self
-            while let innerSuperView = superView.superview {
-                guard innerSuperView.isHidden == false && innerSuperView.alpha > 0 else {
-                    return 0
-                }
-                superView = innerSuperView
+            guard let superView = self.superview,
+                  superView.isHidden == false && superView.alpha > 0 else {
+                return 0
             }
             
-            let superViewInWindow = superView.convert(superView.bounds, to: window)
             // Calculation
+            let superViewInWindow = superView.convert(superView.bounds, to: window)
             let frameInWindow = self.convert(self.bounds, to: window)
             let intersection = frameInWindow.intersection(superViewInWindow)
             let ratio = (intersection.width * intersection.height) / (self.frame.width * self.frame.height)
