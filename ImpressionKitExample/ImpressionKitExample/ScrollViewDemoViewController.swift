@@ -29,7 +29,7 @@ class ScrollViewDemoViewController: UIViewController {
             UIBarButtonItem.init(title: "redetect", style: .plain, target: self, action: #selector(redetect)),
         ]
         
-        self.scrollView.frame = self.view.bounds
+        self.scrollView.frame = CGRect(x: 0, y: self.view.frame.height / 2, width: self.view.frame.width, height: self.view.frame.height / 2)
         self.view.addSubview(self.scrollView)
         
         var bottoms = [CGFloat].init(repeating: 0, count: ScrollViewDemoViewController.column)
