@@ -35,7 +35,7 @@ class TableViewDemoViewController: UIViewController, UITableViewDataSource, UITa
             UIBarButtonItem.init(title: "redetect", style: .plain, target: self, action: #selector(redetect)),
         ]
         
-        self.tableView.frame = self.view.bounds
+        self.tableView.frame = CGRect(x: 0, y: self.view.bounds.height / 2, width: self.view.bounds.width, height: self.view.bounds.height / 2)
         self.tableView.dataSource = self
         self.tableView.delegate = self
         self.view.addSubview(self.tableView)
